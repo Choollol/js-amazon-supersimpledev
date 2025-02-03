@@ -1,18 +1,18 @@
-import { cart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import * as cartModule from "../data/cart.js";
+import * as productModule from "../data/products.js";
 import * as moneyModule from "./utils/money.js";
 
 let cartSummaryHTML = "";
 
-cart.forEach((cartItem) => {
+cartModule.cart.forEach((cartItem) => {
   const productId = cartItem.id;
   let matchingProduct;
-  products.forEach((product) => {
+  productModule.products.forEach((product) => {
     if (product.id === productId) 
       matchingProduct = product;
   });
 
-  const deliveryRadioName = `delivery-option-input-${productId}`
+  const deliveryRadioName = `delivery-option-input-${matchingProduct.id}`
 
   cartSummaryHTML += `
   <div class="cart-item-container">
@@ -38,7 +38,7 @@ cart.forEach((cartItem) => {
           <span class="update-quantity-link link-primary">
             Update
           </span>
-          <span class="delete-quantity-link link-primary">
+          <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
             Delete
           </span>
         </div>
@@ -92,3 +92,10 @@ cart.forEach((cartItem) => {
 });
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
+
+document.querySelectorAll(".js-delete-link").forEach((deleteLink) => {
+  deleteLink.addEventListener("click", () => {
+    const productId = deleteLink.dataset.productId;
+    cartModule.removeFromCart(productId);
+  });
+});

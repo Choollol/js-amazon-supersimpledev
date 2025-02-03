@@ -5,7 +5,7 @@ import * as moneyModule from "./utils/money.js";
 let cartSummaryHTML = "";
 
 cartModule.cart.forEach((cartItem) => {
-  const productId = cartItem.id;
+  const productId = cartItem.productId;
   let matchingProduct;
   productModule.products.forEach((product) => {
     if (product.id === productId) 

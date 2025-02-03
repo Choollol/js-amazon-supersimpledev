@@ -51,7 +51,7 @@ productsModule.products.forEach((product) => {
       </div>
 
       <button class="add-to-cart-button button-primary js-add-to-cart-button"
-      data-product-id="${product.productId}">
+      data-product-id="${product.id}">
         Add to Cart
       </button>
     </div>`;
@@ -67,6 +67,8 @@ function updateCartQuantity() {
 
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
 }
+
+updateCartQuantity();
 
 document.querySelectorAll(".js-add-to-cart-button")
   .forEach((button) => {

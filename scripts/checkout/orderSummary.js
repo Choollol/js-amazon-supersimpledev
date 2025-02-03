@@ -9,13 +9,9 @@ export function renderOrderSummary() {
 
   cartModule.cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-    let matchingProduct;
-    productModule.products.forEach((product) => {
-      if (product.id === productId)
-        matchingProduct = product;
-    });
+    const matchingProduct = productModule.getProductById(productId);
 
-    const deliveryOption = deliveryOptionsModule.deliveryOptions.find((deliveryOption) => deliveryOption.id === cartItem.deliveryOptionId);
+    const deliveryOption = deliveryOptionsModule.getDeliveryOptionById(cartItem.deliveryOptionId);
 
     const dateString = dayjs().add(deliveryOption.deliveryDays, "days").format("dddd, MMMM D");
 

@@ -3,6 +3,7 @@ import * as productModule from "../../data/products.js";
 import * as moneyModule from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import * as deliveryOptionsModule from "../../data/deliveryOptions.js";
+import * as paymentSummaryModule from "./paymentSummary.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -94,6 +95,7 @@ export function renderOrderSummary() {
       const productId = deleteLink.dataset.productId;
       cartModule.removeFromCart(productId);
       document.querySelector(`.js-cart-item-container-${productId}`).remove();
+      paymentSummaryModule.renderPaymentSummary();
     });
   });
 
@@ -102,6 +104,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = element.dataset;
       cartModule.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      paymentSummaryModule.renderPaymentSummary();
     });
   });
 }

@@ -9,7 +9,7 @@ export let cart = JSON.parse(localStorage.getItem(CART_STORAGE_NAME)) ?? [{
   quantity: 2,
 }];
 
-export function addToCart(productId) {
+export function addToCart(productId, quantity) {
   let matchingItem;
 
   cart.forEach((cartItem) => {
@@ -19,7 +19,7 @@ export function addToCart(productId) {
   });
 
   if (matchingItem) {
-    matchingItem.quantity += 1;
+    matchingItem.quantity += quantity;
   }
   else {
     cart.push({

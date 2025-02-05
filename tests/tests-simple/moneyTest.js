@@ -1,4 +1,4 @@
-import * as moneyModule from "../scripts/utils/money.js";
+import * as moneyModule from "../../scripts/utils/money.js";
 import * as testUtilsModule from "./testUtils.js";
 
 function testFormatCurrency(priceCents, targetReturnString, testCaseName) {

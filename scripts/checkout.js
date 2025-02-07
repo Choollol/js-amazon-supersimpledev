@@ -6,11 +6,7 @@ import * as cartModule from "../data/cart.js";
 // import "../data/backend-practice.js";
 
 Promise.all([
-  new Promise((resolve) => {
-    productsModule.loadProducts(() => {
-      resolve("value1");
-    });
-  }),
+  productsModule.loadProductsFetch(),
   new Promise((resolve) => {
     cartModule.loadCart(() => {
       resolve();
@@ -18,7 +14,7 @@ Promise.all([
   }),
 ]).then((values) => {
   console.log(values);
-  
+
   orderSummaryModule.renderOrderSummary();
   paymentSummaryModule.renderPaymentSummary();
 });

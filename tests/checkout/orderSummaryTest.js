@@ -9,7 +9,7 @@ describe("test suite: renderOrderSummary", () => {
   const quantity2 = 2;
 
   beforeAll((done) => {
-    productsModule.loadProducts(() => {
+    productsModule.loadProductsFetch().then(() => {
       done();
     });
   });

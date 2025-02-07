@@ -6,15 +6,24 @@ import * as cartModule from "../data/cart.js";
 // import "../data/backend-practice.js";
 
 async function loadPage() {
-  await Promise.all([
-    productsModule.loadProductsFetch(),
+  try {
+    // throw "error1";
 
-    new Promise((resolve) => {
-      cartModule.loadCart(() => {
-        resolve();
-      });
-    })
-  ]);
+    await Promise.all([
+      productsModule.loadProductsFetch(),
+
+      new Promise((resolve, reject) => {
+        // throw "error2";
+        cartModule.loadCart(() => {
+          // reject("error3");
+          resolve();
+        });
+      })
+    ]);
+  }
+  catch (error) {
+    console.log("Unexpected error. Please try again later.");
+  }
 
   orderSummaryModule.renderOrderSummary();
   paymentSummaryModule.renderPaymentSummary();

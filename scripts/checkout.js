@@ -5,19 +5,33 @@ import * as cartModule from "../data/cart.js";
 // import "../data/cart-class.js";
 // import "../data/backend-practice.js";
 
-Promise.all([
+async function loadPage() {
+  await Promise.all([
+    productsModule.loadProductsFetch(),
+
+    new Promise((resolve) => {
+      cartModule.loadCart(() => {
+        resolve();
+      });
+    })
+  ]);
+
+  orderSummaryModule.renderOrderSummary();
+  paymentSummaryModule.renderPaymentSummary();
+}
+loadPage();
+
+/* Promise.all([
   productsModule.loadProductsFetch(),
   new Promise((resolve) => {
     cartModule.loadCart(() => {
       resolve();
     });
   }),
-]).then((values) => {
-  console.log(values);
-
+]).then(() => {
   orderSummaryModule.renderOrderSummary();
   paymentSummaryModule.renderPaymentSummary();
-});
+}); */
 
 /* new Promise((resolve) => {
   productsModule.loadProducts(() => {

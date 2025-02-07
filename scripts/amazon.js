@@ -2,10 +2,13 @@ import * as cartModule from "../data/cart.js";
 import * as productsModule from "../data/products.js";
 import * as moneyModule from "./utils/money.js";
 
-let productsHTML = "";
+productsModule.loadProducts(renderProductsGrid);
 
-productsModule.products.forEach((product) => {
-  productsHTML += `
+function renderProductsGrid() {
+  let productsHTML = "";
+
+  productsModule.products.forEach((product) => {
+    productsHTML += `
     <div class="product-container">
       <div class="product-image-container">
         <img class="product-image"
@@ -57,30 +60,31 @@ productsModule.products.forEach((product) => {
         Add to Cart
       </button>
     </div>`;
-});
-
-document.querySelector(".products-grid").innerHTML = productsHTML;
-
-function updateCartQuantity() {
-  let cartQuantity = 0;
-  cartModule.cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
   });
 
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-}
+  document.querySelector(".products-grid").innerHTML = productsHTML;
 
-updateCartQuantity();
-
-document.querySelectorAll(".js-add-to-cart-button")
-  .forEach((button) => {
-    button.addEventListener("click", () => {
-      const productId = button.dataset.productId;
-
-      // Get quantity
-      const quantity = Number(document.querySelector(`.js-product-quantity-selection-${productId}`).value);
-
-      cartModule.addToCart(productId, quantity);
-      updateCartQuantity();
+  function updateCartQuantity() {
+    let cartQuantity = 0;
+    cartModule.cart.forEach((cartItem) => {
+      cartQuantity += cartItem.quantity;
     });
-  });
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  }
+
+  updateCartQuantity();
+
+  document.querySelectorAll(".js-add-to-cart-button")
+    .forEach((button) => {
+      button.addEventListener("click", () => {
+        const productId = button.dataset.productId;
+
+        // Get quantity
+        const quantity = Number(document.querySelector(`.js-product-quantity-selection-${productId}`).value);
+
+        cartModule.addToCart(productId, quantity);
+        updateCartQuantity();
+      });
+    });
+}
